@@ -19,8 +19,8 @@ export default function RootLayout({ children }) {
         className={`flex flex-col min-h-screen ${Josefin.className} bg-primary-950 text-primary-100`}
       >
         <Header />
-        <div className="flex-1 px-8 py-12 ">
-          <main className="max-w-7xl mx-auto h-full">{children}</main>
+        <div className="flex-1 px-8 py-12 grid w-full">
+          <main className="max-w-7xl mx-auto h-full w-full">{children}</main>
         </div>
       </body>
     </html>
