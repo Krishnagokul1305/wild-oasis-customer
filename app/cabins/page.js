@@ -1,15 +1,19 @@
 import { Suspense } from "react";
 import CabinList from "../_components/CabinList";
 import Spinner from "../_components/Spinner";
+import Filter from "../_components/Filter";
 
 export const metadata = {
   title: "Cabins",
   description: "A luxury cabin rental service",
 };
 
-async function page() {
+export const revalidate = 0;
+
+async function page({ searchParams }) {
+  const params = searchParams.capacity ?? "all";
   return (
-    <div>
+    <div className="space-y-5">
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
         Our Luxury Cabins
       </h1>
@@ -21,8 +25,9 @@ async function page() {
         home away from home. The perfect spot for a peaceful, calm vacation.
         Welcome to paradise.
       </p>
-      <Suspense fallback={<Spinner />}>
-        <CabinList />
+      <Filter />
+      <Suspense fallback={<Spinner />} key={params}>
+        <CabinList searchParams={params} />
       </Suspense>
     </div>
   );

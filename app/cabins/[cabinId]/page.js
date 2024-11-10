@@ -1,6 +1,10 @@
+import Reservation from "@/app/_components/Reservation";
+import Spinner from "@/app/_components/Spinner";
+import TextExpander from "@/app/_components/TextExpander";
 import { API_IMG, getCabin, getCabins } from "@/app/_lib/data-service";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import { Suspense } from "react";
 
 export async function generateMetadata({ params }) {
   const { name, description } = await getCabin(params.cabinId);
@@ -15,15 +19,14 @@ export async function generateStaticParams() {
   const params = data.map((cabin) => {
     return { cabinId: cabin._id };
   });
-  return params
+  return params;
 }
 
 export default async function Page({ params }) {
   const { _id, name, maxCapacity, regularPrice, discount, image, description } =
     await getCabin(params.cabinId);
-
   return (
-    <div className="max-w-6xl mx-auto mt-8">       
+    <div className="max-w-6xl mx-auto mt-8">
       <div className="grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 py-3 px-10 mb-24">
         <div className="relative scale-[1.15] -translate-x-3">
           <Image src={`${API_IMG}/${image}`} alt={`Cabin ${name}`} fill />
@@ -33,7 +36,9 @@ export default async function Page({ params }) {
             Cabin {name}
           </h3>
 
-          <p className="text-lg text-primary-300 mb-10">{description}</p>
+          <p className="text-lg text-primary-300 mb-10">
+            <TextExpander>{description}</TextExpander>
+          </p>
 
           <ul className="flex flex-col gap-4 mb-7">
             <li className="flex gap-3 items-center">
@@ -61,9 +66,12 @@ export default async function Page({ params }) {
       </div>
 
       <div>
-        <h2 className="text-5xl font-semibold text-center">
-          Reserve today. Pay on arrival.
+        <h2 className="text-5xl font-semibold text-center text-accent-400 mb-5">
+          Reserve {name} today. Pay on arrival.
         </h2>
+        <Suspense fallback={<Spinner />}>
+          <Reservation />
+        </Suspense>
       </div>
     </div>
   );

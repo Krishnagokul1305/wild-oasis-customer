@@ -1,13 +1,17 @@
 import Image from "next/image";
 import about1 from "@/public/about-1.jpg";
 import about2 from "@/public/about-2.jpg";
+import { getCabins } from "../_lib/data-service";
 
 export const metadata = {
   title: "About",
   description: "A luxury cabin rental service",
 };
 
-export default function Page() {
+export const revalidate=3600
+
+export default async function Page() {
+  const cabins = await getCabins();
   return (
     <div className="grid grid-cols-5 gap-x-24 gap-y-32 text-lg items-center">
       <div className="col-span-3">
@@ -24,10 +28,11 @@ export default function Page() {
             and enjoying simple pleasures with family.
           </p>
           <p>
-            Our 8 luxury cabins provide a cozy base, but the real freedom and
-            peace you&apos;ll find in the surrounding mountains. Wander through
-            lush forests, breathe in the fresh air, and watch the stars twinkle
-            above from the warmth of a campfire or your hot tub.
+            Our {cabins?.length || 0} luxury cabins provide a cozy base, but the
+            real freedom and peace you&apos;ll find in the surrounding
+            mountains. Wander through lush forests, breathe in the fresh air,
+            and watch the stars twinkle above from the warmth of a campfire or
+            your hot tub.
           </p>
           <p>
             This is where memorable moments are made, surrounded by
