@@ -78,7 +78,6 @@ export default async function Page() {
             Wild Oasis soon, where tradition meets tranquility, and every visit
             is like coming home.
           </p>
-
           <div>
             <a
               href="/cabins"
