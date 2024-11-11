@@ -1,6 +1,7 @@
 import Header from "./_components/Header";
 import "@/app/_styles/globals.css";
 import { Josefin_Sans } from "next/font/google";
+import ReservationProvider from "@/app/_components/ReservationProvider";
 
 const Josefin = Josefin_Sans({
   display: "swap",
@@ -20,7 +21,9 @@ export default function RootLayout({ children }) {
       >
         <Header />
         <div className="flex-1 px-8 py-12 grid w-full">
+            <ReservationProvider>
           <main className="max-w-7xl mx-auto h-full w-full">{children}</main>
+            </ReservationProvider>
         </div>
       </body>
     </html>

@@ -4,10 +4,11 @@ import ReservationForm from "./ReservationForm";
 
 async function Reservation() {
   const data = await getSettings();
+  console.log(data)
   return (
     <div className="grid grid-cols-2 min-h-[400px] border border-primary-800 p-5 gap-5">
       <DateSelector />
-      <ReservationForm maxCapacity={data.maxGuestPerBooking} />
+      <ReservationForm maxCapacity={data?.maxGuestPerBooking} />
     </div>
   );
 }
